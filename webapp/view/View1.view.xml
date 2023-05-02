@@ -1,0 +1,47 @@
+<mvc:View controllerName="code.demo.training.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form">
+    <Page id="page" title="{i18n>title}">
+        <IconTabBar>
+
+            <items>
+
+                <IconTabFilter text="My Simple Form">
+                    <f:SimpleForm columnsM="3">
+                        <f:content>
+                            <Label text="Name"></Label>
+                            <Input  ></Input>
+
+                            <Label text="Street"></Label>
+                            <Input  ></Input>
+
+                            <Label text="No"></Label>
+                            <Input  ></Input>
+                        </f:content>
+                    </f:SimpleForm>
+                    <Toolbar>
+                        <Button text="Publish"></Button>
+                        <Button text="Save as draft"></Button>
+                    </Toolbar>
+                </IconTabFilter>
+                <IconTabFilter text="TEST">
+                    <Button  text="Hello World"  press="onPressHelloWorld"></Button>
+                </IconTabFilter>
+
+                 <IconTabFilter text="Data Binding">
+                  
+                   
+                     <List  items="{/Employees}">
+
+                        <StandardListItem  title="{EmployeeID}"  description="{path: 'HireDate' , type : 'new sap.ui.model.type.DateTime(pattern: yyyy-MM-dd )'}"></StandardListItem>
+
+                    </List>
+                 
+                </IconTabFilter>
+
+
+            </items>
+        </IconTabBar>
+    </Page>
+</mvc:View>
