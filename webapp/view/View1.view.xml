@@ -4,9 +4,7 @@
     xmlns:f="sap.ui.layout.form">
     <Page id="page" title="{i18n>title}">
         <IconTabBar>
-
             <items>
-
                 <IconTabFilter text="My Simple Form">
                     <f:SimpleForm columnsM="3">
                         <f:content>
@@ -26,21 +24,21 @@
                     </Toolbar>
                 </IconTabFilter>
                 <IconTabFilter text="TEST">
-                    <Button  text="Hello World"  press="onPressHelloWorld"></Button>
+                    <Button text="Hello World" press="onPressHelloWorld"></Button>
                 </IconTabFilter>
-
-                 <IconTabFilter text="Data Binding">
-                  
-                   
-                     <List  items="{/Employees}">
-
-                        <StandardListItem  title="{EmployeeID}"  description="{path: 'HireDate' , type : 'new sap.ui.model.type.DateTime(pattern: yyyy-MM-dd )'}"></StandardListItem>
-
+                <IconTabFilter text="Data Binding">
+                    <List headerText="Products" items="{ 
+                     path : '/Products' , 
+                     sorter: {path :'ProductName'}}">
+                        <items>
+                            <ObjectListItem title=" {path:'ProductName'}" 
+                            number="{parts:[{path:'UnitPrice'}, {path:'Currency>/CURR'}], type:'sap.ui.model.type.Currency' }" 
+                            numberState="{= ${UnitPrice} > 10 ? 'Success' : 'Error'}"
+                            intro="{SupplierID}">
+                            </ObjectListItem>
+                        </items>
                     </List>
-                 
                 </IconTabFilter>
-
-
             </items>
         </IconTabBar>
     </Page>
