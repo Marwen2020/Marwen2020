@@ -1,8 +1,11 @@
 <mvc:View controllerName="code.demo.training.controller.View1"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns="sap.m"
-    xmlns:f="sap.ui.layout.form">
-    <Page id="page" title="{i18n>title}">
+    xmlns:f="sap.ui.layout.form"  
+    xmlns:filter="sap.ui.comp.filterbar">
+    
+
+    <Page title="Hello world">
         <IconTabBar>
             <items>
                 <IconTabFilter text="My Simple Form">
@@ -25,16 +28,36 @@
                 </IconTabFilter>
                 <IconTabFilter text="TEST">
                     <Button text="Hello World" press="onPressHelloWorld"></Button>
+                    <Input  id="Input1" value="{ path:'helloPanel>/recepient/name' , 
+                        type:'sap.ui.model.type.Float', constraints:{maximum:3000} , formatOptions:{minFractionDigits:2} }"  
+                    width="50%" description="{helloPanel>/recepient/name}"
+                    valueLiveUpdate="true"  submit="onSubmit">
+                    </Input>
                 </IconTabFilter>
-                <IconTabFilter text="Data Binding">
-                    <List headerText="Products" items="{ 
+
+                <IconTabFilter id="_IDGenIconTabFilter1" text="Data Binding">
+                
+                 <filter:FilterBar id="_IDGenFilterBar1" showRestoreButton="true" search="onSearch"  showGoOnFB="true" >
+                    <filter:filterGroupItems> 
+                     <filter:FilterGroupItem    groupName="G1" name="ProductFilter" label="Product" 
+                        visibleInFilterBar="true" entityTypeName="Product">
+                        <filter:control>
+                            <Input value=""></Input>
+                        </filter:control>
+                     </filter:FilterGroupItem> 
+    
+                    </filter:filterGroupItems>
+                </filter:FilterBar> 
+
+                    <List id="List" headerText="Products" items="{ 
                      path : '/Products' , 
                      sorter: {path :'ProductName'}}">
                         <items>
-                            <ObjectListItem title=" {path:'ProductName'}" 
+                            <ObjectListItem id="_IDGenObjectListItem1" title=" {path:'ProductName'}" 
                             number="{parts:[{path:'UnitPrice'}, {path:'Currency>/CURR'}], type:'sap.ui.model.type.Currency' }" 
                             numberState="{= ${UnitPrice} > 10 ? 'Success' : 'Error'}"
-                            intro="{SupplierID}">
+                            intro="{SupplierID}"
+                            navigated="true">
                             </ObjectListItem>
                         </items>
                     </List>
