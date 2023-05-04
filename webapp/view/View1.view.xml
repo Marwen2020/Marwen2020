@@ -1,9 +1,10 @@
 <mvc:View controllerName="code.demo.training.controller.View1"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns="sap.m"
-    xmlns:f="sap.ui.layout.form"  
+    xmlns:f="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
     xmlns:filter="sap.ui.comp.filterbar">
-    
+
 
     <Page title="Hello world">
         <IconTabBar>
@@ -28,39 +29,62 @@
                 </IconTabFilter>
                 <IconTabFilter text="TEST">
                     <Button text="Hello World" press="onPressHelloWorld"></Button>
-                    <Input  id="Input1" value="{ path:'helloPanel>/recepient/name' , 
-                        type:'sap.ui.model.type.Float', constraints:{maximum:3000} , formatOptions:{minFractionDigits:2} }"  
-                    width="50%" description="{helloPanel>/recepient/name}"
-                    valueLiveUpdate="true"  submit="onSubmit">
+                    <Input id="Input1" value="{ path:'helloPanel>/recepient/name' , 
+                        type:'sap.ui.model.type.Float', constraints:{maximum:3000} , formatOptions:{minFractionDigits:2} }" width="50%" description="{helloPanel>/recepient/name}" valueLiveUpdate="true" submit="onSubmit">
                     </Input>
+                    <Image src="https://www.imagesource.com/stock-photo-maren-schabhueser-images-image00261816.html"></Image>
                 </IconTabFilter>
 
                 <IconTabFilter id="_IDGenIconTabFilter1" text="Data Binding">
-                
-                 <filter:FilterBar id="_IDGenFilterBar1" showRestoreButton="true" search="onSearch"  showGoOnFB="true" >
-                    <filter:filterGroupItems> 
-                     <filter:FilterGroupItem    groupName="G1" name="ProductFilter" label="Product" 
-                        visibleInFilterBar="true" entityTypeName="Product">
-                        <filter:control>
-                            <Input value=""></Input>
-                        </filter:control>
-                     </filter:FilterGroupItem> 
-    
-                    </filter:filterGroupItems>
-                </filter:FilterBar> 
 
-                    <List id="List" headerText="Products" items="{ 
+                    <filter:FilterBar id="_IDGenFilterBar1" showRestoreButton="true" search="onSearch" showGoOnFB="true">
+                        <filter:filterGroupItems>
+
+                            <filter:FilterGroupItem groupName="G1" name="ProductFilter" label="Product" visibleInFilterBar="true" entityTypeName="Product">
+                                <filter:control>
+                                    <Input value=""  placeholder="Enter a new value"></Input>
+                                </filter:control>
+                            </filter:FilterGroupItem>
+
+                            
+                            <filter:FilterGroupItem groupName="G2" name="CategoryFilter" label="Category" visibleInFilterBar="true" entityTypeName="Product">
+                                <filter:control>
+                                    <Input value=""  placeholder="Enter a new value"></Input>
+                                </filter:control>
+                            </filter:FilterGroupItem>
+                        </filter:filterGroupItems>
+                    </filter:FilterBar>
+                    <content>
+                    <List id="List"   headerText="Products" items="{ 
                      path : '/Products' , 
-                     sorter: {path :'ProductName'}}">
+                     parameters:{expand:'Category'},
+                     sorter: {path:'Category/CategoryName' , group:true}}" growing="true" growingThreshold="5" growingScrollToLoad="false"  >
                         <items>
-                            <ObjectListItem id="_IDGenObjectListItem1" title=" {path:'ProductName'}" 
-                            number="{parts:[{path:'UnitPrice'}, {path:'Currency>/CURR'}], type:'sap.ui.model.type.Currency' }" 
-                            numberState="{= ${UnitPrice} > 10 ? 'Success' : 'Error'}"
-                            intro="{SupplierID}"
-                            navigated="true">
+                            <ObjectListItem id="_IDGenObjectListItem1" title="{ProductName} "
+                             number="{parts:[{path:'UnitPrice'}, {path:'Currency>/CURR'}], type:'sap.ui.model.type.Currency'}" 
+                             numberState="{= ${UnitPrice} > 10 ? 'Success' : 'Error'}" intro="{SupplierID}" navigated="true" press="onItemSelected" type="Active">
                             </ObjectListItem>
+                    
+
                         </items>
                     </List>
+
+                    <Panel id="Panel" headerText="Details" visible="false">
+                        <l:Grid >
+                            <!-- <Text text="{ProductName}"></Text>
+                            <Text text="{parts:[{path:'UnitPrice'}, {path:'Currency>/CURR'}], type:'sap.ui.model.type.Currency'}"></Text> -->
+                            <!-- <Text text="Category: {Category/CategoryName}"></Text>
+                            <Text text="Description: {Category/Description}"></Text> -->
+                            <Text text="Category: {Category/CategoryID}"></Text>
+                            <Image id="Image" src="https://services.odata.org/v2/northwind/northwind.svc/Categories(3)/Picture/$value" ></Image>
+                        
+                        </l:Grid >
+
+                    </Panel>
+
+                    </content>
+                    
+
                 </IconTabFilter>
             </items>
         </IconTabBar>
